@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+            {% for a in appointments %}
+
+                <table class="table table-hover my-4" style="text-align:center">
+
+                    <thead >
+                        <tr>
+                        <th scope="col">Appointment No</th>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Booking Date and Time</th>
+                        <th scope="col">Hospital Name</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Status</th>
+
+                        {% if a.status != "Completed" %}
+                        <th scope="col">Appointment Date and Time</th>
+                        {% else %}
+                        <th scope="col">Download Report</th>
+                        {% endif %}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr
+                        
+                            {% if a.status == "Pending" %}
+                            style="background-color:#F9F77D";
+                            {% elif a.status == "Confirmed"%}
+                            style="background-color:#6AEBE1 ";
+                            {% else %}
+                            style="background-color:#7FF988";
+                            {% endif %}
+                        
+                        >
+                            <th scope="row">{{ a.id }}</th>
+                            <td>{{ a.name }}</td>
+                            <td>{{ a.contact_date }}</td>
+                            <td>{{ a.listings }}</td>
+                            <td>{{ a.doctor }}</td>
+                            <td>{{ a.status }}</td>
+                            
+                            
+
+
+                            {% if a.status == "Pending" %}
+                                <td> Appointment not confirmed. </td>
+                            {% elif a.status == "Confirmed" %}
+                                <td scope="col"> {{ a.appointment_date }} </th>
+                            {% elif a.status == "Completed" %}
+                                <td scope="col"><a href="{% url 'bill' a.id %} "> Click Here </a> </th>
+                            {% endif %}
+
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            {% empty %}
+
+                <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+                    <strong>Hello {{user.first_name}} {{ user.last_name}} !</strong> You don't seen to have any assignments booked.
+                </div>
+
+            {% endfor %}
+
+
+
+{% endblock content %}

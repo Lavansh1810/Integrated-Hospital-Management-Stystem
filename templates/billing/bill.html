@@ -1,0 +1,158 @@
+<head>
+
+
+<style>
+
+    #invoice-POS {
+    box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+    padding: 2mm;
+    margin: 0 auto;
+    background: #FFF;
+    }
+    #invoice-POS ::selection {
+    background: #f31544;
+    color: #FFF;
+    }
+    #invoice-POS ::moz-selection {
+    background: #f31544;
+    color: #FFF;
+    }
+    
+   
+    #invoice-POS #top .logo {
+    height: 100px;
+    width: 100px;
+    background:url(logo.jpeg) no-repeat;
+    background-size: 100px 100px;
+    }
+   
+   
+
+    #invoice-POS .info {
+    display: block;
+    margin-left: 0;
+    }
+   
+    #invoice-POS .title p {
+    text-align: right;
+    }
+    #invoice-POS table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+    #invoice-POS .tabletitle {
+    font-size: 0.8em;
+    background: #EEE;
+    }
+    #invoice-POS .service {
+    border-bottom: 1px solid #EEE;
+    }
+    #invoice-POS .itemtext {
+    font-size: 1em;
+    margin-top : 6px;
+    margin-bottom : 6px;
+    }
+    
+
+    .button-1 {
+    background-color: #EA4C89;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    }
+
+    .button-1:hover,
+    .button-1:focus {
+    background-color: #F082AC;
+    }
+
+    @media print {
+    .hidden-print {
+        display: none !important;
+    }
+    }
+</style>
+
+</head>
+
+
+
+<div id="invoice-POS">
+    
+    <center id="top">
+      <div class="logo"></div>
+      <div class="info"> 
+        <h2>{{ data.listings }}</h2>
+      </div>
+    </center>
+    
+    <div id="mid">
+      <div class="info">
+        <h2>Contact Info</h2>
+        <p> 
+            Patient Name : {{data.name}}</br>
+            Age : {{data.age}}</br>
+            Email   : {{data.email }}</br>
+            Phone   : {{ data.phone }}</br>
+        </p>
+      </div>
+    </div><!--End Invoice Mid-->
+    
+    <div >
+
+					<div>
+						<table>
+							<tr class="tabletitle">
+								<td ><h2>Appointment Details</h2></td>
+								<td ><h2>Doctor Name</h2></td>
+								<td ><h2>Status</h2></td>
+							</tr>
+
+							<tr class="service">
+								<td class="tableitem"><p class="itemtext">{{data.appointment_date}}</p></td>
+								<td class="tableitem"><p class="itemtext">{{data.doctor}}</p></td>
+								<td class="tableitem"><p class="itemtext">{{data.status}}</p></td>
+							</tr>
+
+							<tr class="tabletitle">
+								<td></td>
+								<td class="Rate"><h2>Total</h2></td>
+								<td class="payment"><h2>₹{{data.amount}}</h2></td>
+							</tr>
+
+						</table>
+					</div><!--End Table-->
+
+					<div id="legalcopy">
+						<p class="legal"><strong>Thank you for your interest!</strong>  
+						</p>
+					</div>
+
+				</div>
+
+                <button class="hidden-print button-1" onclick="window.print()" >Print Receipt</button>
+  </div><!--End Invoice-->
+
+
+
+

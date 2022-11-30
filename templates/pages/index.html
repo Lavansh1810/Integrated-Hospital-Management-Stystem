@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %} | Welcome {% endblock %}
+ {% block content %}
+<!-- Showcase -->
+<section id="showcase">
+    <div class="container text-center">
+        <div class="home-search p-5">
+            <div class="overlay p-5">
+                <h1 class="display-4 mb-4">
+                    One Stop Digital Healthcare Solution
+                </h1>
+                <p class="lead">Hospital, Clinic, Lab, Pharmacy Management System
+                    User Friendly Interface...Highly Affordable...</p>
+
+                <div class="search">
+                    <form action="{% url 'listings' %}">
+                        <!-- Form Row 1 -->
+                        <div class="form-row">
+
+
+                            <div class="col-md-6 mb-3">
+                                <label class="sr-only">City</label>
+                                <input type="text" name="city" class="form-control" placeholder="City">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="sr-only">State</label>
+                                <select name="state" class="form-control">
+                                    <option selected="true" disabled="disabled">State (All)</option>
+                                    <option value="AL">Andhra Pradesh</option>
+                                    <option value="AK">Arunachal Pradesh</option>
+                                    <option value="AZ">Assam</option>
+                                    <option value="AR">Bihar</option>
+                                    <option value="CA">Chhattisgarh</option>
+                                    <option value="CO">Goa</option>
+                                    <option value="CT">Gujarat</option>
+                                    <option value="DE">Haryana</option>
+                                    <option value="DC">Himachal Pradesh</option>
+                                    <option value="FL">Jharkhand</option>
+                                    <option value="GA">Karnataka</option>
+                                    <option value="HI">Kerala</option>
+                                    <option value="ID">Madhya Pradesh</option>
+                                    <option value="IL">Maharashtra</option>
+                                    <option value="IN">Manipur</option>
+                                    <option value="IA">Meghalaya</option>
+                                    <option value="KS">Mizoram</option>
+                                    <option value="KY">Nagaland</option>
+                                    <option value="LA">Odisha</option>
+                                    <option value="ME">Punjab</option>
+                                    <option value="MD">Rajasthan</option>
+                                    <option value="MA">Sikkim</option>
+                                    <option value="MI"> Tamil Nadu</option>
+                                    <option value="MN">Telangana</option>
+                                    <option value="MS">Tripura</option>
+                                    <option value="MO">Uttar Pradesh</option>
+                                    <option value="MT">Uttarakhand</option>
+                                    <option value="NE">West Bengal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Form Row 2 -->
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label class="sr-only">Speciality</label>
+                                <select name="special" class="form-control">
+                                    <option selected="true" disabled="disabled">Speciality</option>
+                                    <option value="1">Cardiologist (Heart)</option>
+                                    <option value="2">Dentist (Oral Health)</option>
+                                    <option value="3">ENT specialist (Ear, Nose, Throat)</option>
+                                    <option value="4">Orthopaedic (Musculoskeletal System)</option>
+                                    <option value="5">Paediatrician (Children)</option>
+                                    <option value="6">Psychiatrists (Mental Health)</option>
+                                    <option value="7">Gynaecologist (Gynaecological problems)</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="date" name="date" class="form-control" placeholder="Date">
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Alrets-->
+ 
+{% include 'partials/_alerts.html'%}
+<!-- Listings -->
+<section id="listings" class="py-5">
+    <div class="container">
+        <h3 class="text-center mb-3">Trusted and Most Reputed</h3>
+        <br>
+        <div class="row">
+            {% if listings %}
+            {% for listing in listings %}
+            <div class="col-md-6 col-lg-4 mb-10">
+              <div class="card listing-preview">
+                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="" height="200px">
+                <div class="card-img-overlay">
+                  <h2>
+                    <span class="badge badge-secondary text-white">{{ listing.state }}</span>
+                  </h2>
+                </div>
+                <div class="card-body">
+                  <div class="listing-heading text-center">
+                    <h4 class="text-primary">{{ listing.title }}</h4>
+                    <p>
+                      <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }}, {{ listing.state }} {{ listing.pincode }}
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-12">
+                      <i class="fa fa-calendar"></i> Established in: {{ listing.estb }}
+                    </div>
+    
+                  </div>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-12">
+                      <i class="fas fa-bed"></i> No. of Beds: {{ listing.beds }}
+                    </div>
+    
+                  </div>
+                  <hr>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-12">
+                      <i class='far fa-address-card'></i> {{ listing.address }}
+                    </div>
+                  </div>
+    
+                  <hr>
+                  <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+                </div> 
+              </div>
+            </div>
+    
+             {% endfor%}
+            {% else %}
+             <div class="col-md-12">
+             <p>No Hospitals Available</p> 
+             </div>
+            {% endif %}
+            
+            
+
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6">
+                <i class="fas fa-comment fa-4x mr-4"></i>
+                <hr>
+                <h3>Consulting Services</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae,
+                    provident iste consequatur hic dignissimos ratione ea quae.</p>
+
+            </div>
+
+            <div class="col-md-6">
+                <i class="fas fa-suitcase fa-4x mr-4"></i>
+                <hr>
+                <h3>Proper Management</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae,
+                    provident iste consequatur hic dignissimos ratione ea quae.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
